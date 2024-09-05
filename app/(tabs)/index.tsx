@@ -1,23 +1,30 @@
 import Todo from '@/components/todo';
 import TodosCard from '@/components/todosCard';
-import { Image, StyleSheet, Platform, Text, ScrollView, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  Text,
+  ScrollView,
+  View,
+} from 'react-native';
 
 export interface TodoInterface {
-  name: string,
-  severity: number,
-  id: number,
+  title: string;
+  severity: number;
+  id: number;
 }
-
-
 
 export default function HomeScreen() {
   return (
     <View>
       <View>
-      <TodosCard/> 
+        <TodosCard />
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -30,14 +37,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     borderRadius: 20,
-    borderColor: 'red'
+    borderColor: 'red',
   },
   stepContainer: {
     gap: 8,
     marginBottom: 8,
   },
-  TodoCard : {
-    display: 'flex'
+  TodoCard: {
+    display: 'flex',
   },
   reactLogo: {
     height: 178,

@@ -1,4 +1,8 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -9,6 +13,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { Button, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import NewTodoButton from '@/components/NewTodoButton';
+import { TodosProvider } from './context/context';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -30,13 +35,19 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerTitle: 'Todos', headerRight: () => (
-          <NewTodoButton/>
-        )}} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <TodosProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen
+            name="(tabs)"
+            options={{
+              headerTitle: 'Todos',
+              headerRight: () => <NewTodoButton />,
+            }}
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ThemeProvider>
+    </TodosProvider>
   );
 }
